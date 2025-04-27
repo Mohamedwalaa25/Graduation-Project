@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ArticleCategorieApiController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategorieController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\PendingArticleController;
 use App\Http\Controllers\Api\SettingApiController;
@@ -79,4 +80,8 @@ Route::middleware('isUser')->group(function () {
     });
 
     Route::get('user/articles', [UserController::class, 'articles']);
+    Route::post('user/update', [UserController::class, 'update']);
+    Route::post('comment/create', [CommentController::class, 'store']);
 });
+
+Route::get('comments-get-by-article_id', [CommentController::class, 'getByArticleId']);

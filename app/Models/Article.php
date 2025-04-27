@@ -37,7 +37,7 @@ class Article extends Model
     public function user()
     {
 
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function descreptionArticles()
@@ -100,5 +100,11 @@ class Article extends Model
     public function scopeInActive(Builder $builder): void
     {
         $builder->where('status', false);
+    }
+
+    public function comments()
+    {
+
+        return $this->hasMany(Comment::class);
     }
 }
