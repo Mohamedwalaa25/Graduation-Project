@@ -7,6 +7,7 @@ use App\Http\Resources\Api\ArticleDetailsResource;
 use App\Models\Articlesubcategorie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\SearchRequest;
 use App\Http\Resources\Api\ArticleResource;
 use App\Models\Article;
 use Illuminate\Support\Facades\Validator;
@@ -69,6 +70,24 @@ class ArticleController extends Controller
     {
 
         $articles = Article::active()->where('home_page', true)->get();
+
+        if ($articles->isEmpty()) {
+            return apiResponse([], "Data Not Found ", 404);
+        }
+
+        return apiResponse([
+
+            'articles' =>  ArticleResource::collection($articles)
+        ], [], 200);
+    }
+
+
+    public function search(SearchRequest $request)
+    {
+
+        $articleName = trim($request->article_name);
+
+        $articles =  Article::active()->whereLike('title', "%" . $articleName . "%")->get();
 
         if ($articles->isEmpty()) {
             return apiResponse([], "Data Not Found ", 404);

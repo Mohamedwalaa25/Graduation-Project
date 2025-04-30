@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategorieController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\PendingArticleController;
 use App\Http\Controllers\Api\SettingApiController;
 use App\Http\Controllers\Api\SiteMapController;
@@ -82,6 +83,12 @@ Route::middleware('isUser')->group(function () {
     Route::get('user/articles', [UserController::class, 'articles']);
     Route::post('user/update', [UserController::class, 'update']);
     Route::post('comment/create', [CommentController::class, 'store']);
+
+    Route::post('like/create', [LikeController::class, 'store']);
 });
 
-Route::get('comments-get-by-article_id', [CommentController::class, 'getByArticleId']);
+Route::get('comments-get-by-article-id', [CommentController::class, 'getByArticleId']);
+
+Route::get('likes-get-by-article-id', [LikeController::class, 'getByArticle']);
+
+Route::get('article/search', [ArticleController::class, 'search']);
