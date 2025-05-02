@@ -70,3 +70,12 @@ Route::middleware('auth:users')->group(function () {
 
     Route::match(['GET', 'POST'], '/myfatoorah/payment/callback', [PaymentController::class, 'handleMyFatoorahCallback'])
     ->name('payment.myfatoorah.callback');
+
+/*********************************** Home Page  ********************************/
+
+
+Route::prefix('home')->middleware('auth:users')->controller(HomeController::class)->group(function () {
+
+
+    Route::get('/index', 'index');
+});
