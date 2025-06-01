@@ -79,4 +79,28 @@ class LikeController extends Controller
             'likes' => LikeResource::collection($articleLikes),
         ]);
     }
+
+
+    /*added By Mohamed Walaa
+            Edited at 8-5-2025
+            */
+    public function delete(StoreLikeRequest $request)
+    {
+        $articleId = $request->article_id;
+
+        $user = Auth::guard('api')->user();
+      
+
+        $userId = $user->id;
+
+        $like = Like::where('user_id', $userId)->where('article_id', $articleId)->first();
+
+        if (!$like) {
+            return apiResponse(null, 'Like not found', 404);
+        }
+
+        $like->delete();
+
+        return apiResponse(null,'Article unliked successfully', 200);
+    }
 }

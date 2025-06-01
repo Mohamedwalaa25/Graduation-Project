@@ -44,7 +44,7 @@ class MyFatoorahPaymentService extends BasePaymentService implements PaymentGate
             $data = [
                 'InvoiceValue' => $price,
                 'DisplayCurrencyIso' => $currency, 
-                'CustomerName' => $user->user_name,
+                'CustomerName' => $user->name,
                 'CustomerEmail' => $user->email, 
                 'CustomerReference' => json_encode([
                     'user_id' => $userId,

@@ -12,13 +12,7 @@ use App\Http\Resources\PackageResoucre;
 class PackageController extends Controller
 {
     use Response;
-    // public function packages()
-    // {
-    //     $packages = Package::all();
 
-    //     return $this->sendResponse(PackageResoucre::collection($packages), 'All Packages', 200);
-
-    // }
 
     public function packages(Request $request)
     {

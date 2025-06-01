@@ -23,7 +23,7 @@ class SendOtpEmail extends Mailable
     public function __construct( User $user)
     {
         $this->otp = $user->otp;
-        $this->userName = $user->user_name;
+        $this->userName = $user->name;
     }
 
     /**

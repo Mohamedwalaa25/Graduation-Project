@@ -85,6 +85,7 @@ Route::middleware('isUser')->group(function () {
     Route::post('comment/create', [CommentController::class, 'store']);
 
     Route::post('like/create', [LikeController::class, 'store']);
+    Route::delete('like/delete', [LikeController::class, 'delete']);
 });
 
 Route::get('comments-get-by-article-id', [CommentController::class, 'getByArticleId']);
