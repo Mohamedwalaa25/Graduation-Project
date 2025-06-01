@@ -22,7 +22,6 @@ class HomeController extends Controller
     use Response;
     public function search(){
 
-    // $plants = Plant::with('section')->get();
 
     $sections = Section::with('plants')->get();
 
@@ -46,7 +45,7 @@ class HomeController extends Controller
         ->orderByDesc('disease_user_count')
         ->limit(5)  
         ->get();
-        
+
 
     $count = $topDiseases->count();
 
