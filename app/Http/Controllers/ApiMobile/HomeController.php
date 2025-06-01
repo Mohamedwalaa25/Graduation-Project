@@ -46,6 +46,7 @@ class HomeController extends Controller
         ->orderByDesc('disease_user_count')
         ->limit(5)  
         ->get();
+        
 
     $count = $topDiseases->count();
 
