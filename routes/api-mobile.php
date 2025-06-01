@@ -16,7 +16,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
     /*********************************** AUTHENTICATION ******************************/
 
     Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
@@ -75,7 +74,5 @@ Route::middleware('auth:users')->group(function () {
 
 
 Route::prefix('home')->middleware('auth:users')->controller(HomeController::class)->group(function () {
-
-
     Route::get('/index', 'index');
 });

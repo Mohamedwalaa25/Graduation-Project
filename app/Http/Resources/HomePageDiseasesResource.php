@@ -14,15 +14,36 @@ class HomePageDiseasesResource extends JsonResource
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array
-    {
-        return [
+{
+    $position = $this->position ?? null;
 
-            'name' => $this->name,
-            'description' => $this->description,
-            'image' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
-            'imageUrl' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
-            'serverity' => 'Common',
-            'serverityColor' => null
-        ];
+    $serverity = 'Common';
+    $serverityColor = '0xFFF98E01'; // orange
+
+    if ($position === 2) {
+        $serverity = 'Common';
+        $serverityColor = '0xFFF98E01'; // orange
+    } elseif ($position === 3) {
+        $serverity = 'Severe';
+        $serverityColor = '0xFFD40F0F'; //red
+    } elseif ($position === 4) {
+        $serverity = 'Mild';
+        $serverityColor = '0xff3E7B27'; // green
+    }elseif ($position === 5) {
+        $serverity = 'Mild';
+        $serverityColor = '0xff3E7B27'; // green
     }
+
+    
+
+
+    return [
+        'origin_name' => $this->origin_name,
+        'description' => $this->description,
+        'image' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
+        'imageUrl' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
+        'serverity' => $serverity,
+        'serverityColor' => $serverityColor
+    ];
+}
 }

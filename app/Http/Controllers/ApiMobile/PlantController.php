@@ -16,7 +16,6 @@ class PlantController extends Controller
     use Response;
     public function index(){
 
-    // $plants = Plant::with('section')->get();
 
     $sections = Section::with('plants')->get();
 

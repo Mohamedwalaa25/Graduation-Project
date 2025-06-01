@@ -17,7 +17,7 @@ class SearchResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'plants' => $this->plants->map(function ($plant) {
+            'plants' => $this->plants?->map(function ($plant) {
                 return [
                     'id' => $plant->id,
                     'name' => $plant->name,
@@ -57,9 +57,9 @@ class SearchResource extends JsonResource
 
                     'images' => $plant->images->reduce(function ($carry, $image, $index) {
                         if ($index === 0) {
-                            $carry['image'] = url('storage/' . $image->image);  
+                            $carry['image'] = $image->image ? url('storage/' . $image->image): url('assets/images/user.jpg');  
                         } else {
-                            $carry['header_image'] =  url('storage/' . $image->image);  
+                            $carry['header_image'] =  $image->image ? url('storage/' . $image->image): url('assets/images/user.jpg');  
                         }
                         return $carry;
                     }, []),

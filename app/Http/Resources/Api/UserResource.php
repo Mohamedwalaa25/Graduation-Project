@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'image_name' => URL::asset('Backend/Uploades/Users/' . $this->image_name ?? 'profile.png')
+            'image_name' => URL::asset('Backend/Uploades/Users/' . $this->image_name ?? URL::asset('assets/images/user.jpg'))
         ];
     }
 }

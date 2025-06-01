@@ -22,7 +22,6 @@ class HomeController extends Controller
     use Response;
     public function search(){
 
-    // $plants = Plant::with('section')->get();
 
     $sections = Section::with('plants')->get();
 
@@ -39,29 +38,43 @@ class HomeController extends Controller
 
 
     public function index()
-    {
-        $topDiseases = Disease::whereHas('diseaseUser')->with('images')
-            ->withCount('diseaseUser')
-            ->orderByDesc('disease_user_count')
-            ->limit(10)
+{
+    $topDiseases = Disease::whereHas('diseaseUser')
+        ->with(['images'])
+        ->withCount('diseaseUser')
+        ->orderByDesc('disease_user_count')
+        ->limit(5)  
+        ->get();
+
+
+    $count = $topDiseases->count();
+
+    if ($count < 5) {
+        $additionalDiseases = Disease::whereNotIn('id', $topDiseases->pluck('id'))
+            ->with('images')
+            ->inRandomOrder()
+            ->limit(5 - $count)
             ->get();
 
-        $count = $topDiseases->count();
-
-        if ($count < 10) {
-            $additionalDiseases = Disease::whereNotIn('id', $topDiseases->pluck('id'))
-                ->inRandomOrder()
-                ->limit(10 - $count)
-                ->get();
-
-            $homePageDiseases = $topDiseases->merge($additionalDiseases);
-        } else {
-            $homePageDiseases = $topDiseases;
-        }
-
-        if ($homePageDiseases->isEmpty()) {
-            return $this->sendResponse([], 'Not Found ', 404);
-        }
-        return $this->sendResponse(HomePageDiseasesResource::collection($homePageDiseases), 'Get Diseases Success', 200);
+        $homePageDiseases = $topDiseases->merge($additionalDiseases)->values();
+    } else {
+        $homePageDiseases = $topDiseases;
     }
+
+    if ($homePageDiseases->isEmpty()) {
+        return $this->sendResponse([], 'Not Found', 404);
+    }
+
+    // Add index for each disease
+    $homePageDiseases = $homePageDiseases->map(function ($disease, $index) {
+        $disease->position = $index + 1;
+        return $disease;
+    });
+
+    return $this->sendResponse(
+        HomePageDiseasesResource::collection($homePageDiseases),
+        'Get Diseases Success',
+        200
+    );
+}
 }
