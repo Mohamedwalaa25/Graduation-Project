@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers\Dashboard\Articles;
 
-use App\Core\Dashboard\MessageConstants;
-use App\Core\Dashboard\Repository\Article\ArticleRepository;
-use App\Core\Dashboard\Repository\ArticleSubCategorie\ArticleSubCategorieRepository;
-use App\Core\Dashboard\Repository\User\UserRepository;
-use App\Core\Dashboard\Service\ArticleService;
-use App\Core\Trait\FileTrait;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Core\Trait\FileTrait;
+use App\Mail\ApprovedArticleMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ArticleRequest;
+use App\Core\Dashboard\MessageConstants;
+use App\Core\Dashboard\Service\ArticleService;
+use App\Core\Dashboard\Repository\User\UserRepository;
+use App\Core\Dashboard\Repository\Article\ArticleRepository;
+use App\Core\Dashboard\Repository\ArticleSubCategorie\ArticleSubCategorieRepository;
+use Exception;
 
 class ArticleController extends Controller
 {
@@ -237,6 +241,29 @@ class ArticleController extends Controller
         $articleId = $request->articleId;
 
         $article = Article::findOrFail($articleId);
+
+
+        if ($status == 1) {
+            try {
+
+                $userName = $article->user->name;
+                $userEmail = $article->user->email;
+                $articleTitle = $article->title;
+
+                Mail::to($userEmail)->send(new ApprovedArticleMail([
+                    'userName' => $userName,
+                    'userEmail' => $userEmail,
+                    'articleTitle' => $articleTitle,
+                    'articleUrl' => route('api.article.find', ['articleId' => $articleId])
+                ]));
+            } catch (Exception $e) {
+
+                Log::error($e->getMessage());
+            }
+        }
+
+
+
         $article->update(['status' => $status]);
 
         return response()->json([
