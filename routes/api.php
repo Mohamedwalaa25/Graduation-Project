@@ -63,7 +63,7 @@ Route::get('/sub-categories/get-by-categorie-id', [SubCategorieController::class
 Route::get('/get-articles-by-sub-categorie-id', [ArticleController::class, 'getBySubCategorieId']);
 Route::get('/get-random', [ArticleController::class, 'getRandom']);
 
-Route::get('/find', [ArticleController::class, 'find']);
+Route::get('/find', [ArticleController::class, 'find'])->name('article.find');
 
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 
