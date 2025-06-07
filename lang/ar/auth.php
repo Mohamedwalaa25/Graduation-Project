@@ -22,7 +22,8 @@ return [
 'Account deleted successfully' => 'تم حذف الحساب بنجاح',
 'Unauthenticated.' => 'غير مصادق عليه.',
 'Otp incorrect' => 'الرمز غير صحيح',
-
+'check_your_email_for_verification_link' => 'تحقق من بريدك الإلكتروني للحصول على رابط التحقق',
+'Your account is not activated yet' => 'حسابك غير مفعل بعد',
 ];
 
 

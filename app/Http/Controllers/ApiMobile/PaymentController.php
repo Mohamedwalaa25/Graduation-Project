@@ -155,13 +155,11 @@ class PaymentController extends Controller
 
     public function success()
     {
-        
-
         return view('payment-success');
     }
 
 
-    public function failed()  
+    public function failed()
     {
         return view('payment-failed');
     }

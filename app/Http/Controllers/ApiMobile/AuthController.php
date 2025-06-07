@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiMobile;
 use App\Models\User;
 use Twilio\Rest\Client;
 use App\Traits\Response;
+use App\Mail\VerifyEmail;
 use App\Mail\SendOtpEmail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -24,14 +25,17 @@ class AuthController extends Controller
 
     public function register(AuthRegisterRequest $request)
     {
-
         $data = $request->validated();
 
         $data['password'] = bcrypt($data['password']);
 
+        $data['activation_token'] = Str::random(35);
+
         $user = User::create($data);
 
-        return $this->sendResponse([], __('auth.Register successfully'), 200);
+        Mail::to($user->email)->send(new VerifyEmail($user->email, $user->name, $user->activation_token));
+
+        return $this->sendResponse([], __('auth.check_your_email_for_verification_link'), 200);
     }
 
 
@@ -39,16 +43,18 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
 
-
         $user = User::where('email', $validated['email'])->first();
 
         if (!$user || !Hash::check($validated['password'], $user->password)) {
             return $this->sendError(__('auth.Credentials do not match'), 401);
         }
 
+        if (is_null($user->email_verified_at)) {
+            return $this->sendError(__('auth.Your account is not activated yet'),[], 403);
+        }
+
         return $this->sendResponse(new AuthLoginResource($user), __('auth.Login successfully'), 200);
     }
-
     public function logout()
     {
         $user = auth()->guard('users')->user();
@@ -142,14 +148,26 @@ class AuthController extends Controller
         return $this->sendResponse([], __('auth.Reset password successfully'), 200);
     }
 
+    public function verifyActivation($token)
+    {
+        $user = User::where('activation_token', $token)->first();
 
+        if (!$user) {
+            abort(404, 'User not found or already activated');
+        }
+        $user->email_verified_at = now();
+        $user->activation_token = null;
+        $user->save();
 
-    public function deleteAccount (Request $request)
+        return view('verifiey-success');
+    }
+
+    public function deleteAccount(Request $request)
     {
         $request->validate([
             'password' => 'required|string|min:6',
         ]);
-        
+
         $user = auth('users')->user();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
@@ -158,7 +176,7 @@ class AuthController extends Controller
         $user->delete();
         return $this->sendResponse([], __('auth.Account deleted successfully'), 200);
     }
-        
+
 
 
 

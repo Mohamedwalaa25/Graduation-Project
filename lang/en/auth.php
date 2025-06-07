@@ -37,5 +37,6 @@ return [
     'Unauthenticated' => 'Unauthenticated.',
     'Otp incorrect' => 'OTP incorrect',
     'logoutSuccessfully' => 'You have logged out successfully',
-
+    'check_your_email_for_verification_link' => 'Check your email for verification link',
+    'Your account is not activated yet' => 'Your account is not activated yet',
 ];
