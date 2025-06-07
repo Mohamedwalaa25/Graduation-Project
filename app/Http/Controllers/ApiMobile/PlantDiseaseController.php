@@ -90,7 +90,7 @@ class PlantDiseaseController extends Controller
     {
         $name = $request['name'];
     
-
+            logger($name);  
         $disease = Disease::with(['homeRemedys', 'images', 'symptoms', 'solutions', 'preventions'])->where('name' ,$name)->first();
 
         if (!$disease) { 

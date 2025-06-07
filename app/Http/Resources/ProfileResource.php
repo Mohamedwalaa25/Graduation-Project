@@ -19,7 +19,9 @@ class ProfileResource extends JsonResource
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             // 'image'=>$this->profile_photo_url,  //'storage/' . $this->image ?? asset('assets/images/user.png'),
-            'image_name' => $this->image_name  ? url('storage/' . $this->image_name) : url('assets/images/user.jpg'),
+            'image_name' => $this->image_name
+                ? env('APP_URL') . '/storage/' . $this->image_name
+                : env('APP_URL') . '/assets/images/user.jpg',
             'points' => $this->points
         ];
     }
