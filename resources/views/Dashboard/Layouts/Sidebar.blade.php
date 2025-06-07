@@ -36,6 +36,13 @@
             </a>
         </li>
 
+           <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('dashboard/transaction') }}">
+             <i class="bi bi-coin"></i>
+                <span>Transactions</span>
+            </a>
+        </li>
+
 
 
         {{-- <li class="nav-item">

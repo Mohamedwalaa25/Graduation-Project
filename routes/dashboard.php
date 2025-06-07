@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Articles\ArticleCategorieController;
-use App\Http\Controllers\Dashboard\Articles\ArticleController;
-use App\Http\Controllers\Dashboard\Articles\ArticleSubCategorieController;
-use App\Http\Controllers\Dashboard\AuthController;
-use App\Http\Controllers\Dashboard\ContactController;
-use App\Http\Controllers\Dashboard\HomeController;
-use App\Http\Controllers\Dashboard\PendingArticleController;
-use App\Http\Controllers\Dashboard\SliderController;
-
-use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\Dashboard\AuthController;
+use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\SliderController;
+use App\Http\Controllers\Dashboard\ContactController;
+use App\Http\Controllers\Dashboard\TransactionController;
+
+use App\Http\Controllers\Dashboard\PendingArticleController;
+use App\Http\Controllers\Dashboard\Articles\ArticleController;
+use App\Http\Controllers\Dashboard\Articles\ArticleCategorieController;
+use App\Http\Controllers\Dashboard\Articles\ArticleSubCategorieController;
 
 
 
@@ -79,5 +80,14 @@ Route::prefix('dashboard')->middleware('isAdmin')->group(function () {
 
         Route::get('/', 'index');
         Route::post('/update-or-create', 'updateOrCreate');
+    });
+
+
+    /*
+    Added By Mohamed Walaa 
+    */
+
+      Route::prefix('/transaction')->controller(TransactionController::class)->group(function () {
+        Route::get('/', 'index');
     });
 });

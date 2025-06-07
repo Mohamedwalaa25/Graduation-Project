@@ -17,13 +17,17 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-    /*********************************** AUTHENTICATION ******************************/
+/*********************************** AUTHENTICATION ******************************/
 
-    Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
-    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
-    Route::post('/password-recovery', [AuthController::class, 'passwordRecovery'])->name('auth.passwordRecovery');
-    Route::post('/verify', [AuthController::class, 'verify'])->name('auth.veryfy');
-    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('auth.resetPassword');
+Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/password-recovery', [AuthController::class, 'passwordRecovery'])->name('auth.passwordRecovery');
+Route::post('/verify', [AuthController::class, 'verify'])->name('auth.veryfy');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('auth.resetPassword');
+Route::get('/activate/{token}', [AuthController::class, 'verifyActivation'])->name('activation.verify');
+
+Route::get('login/google', [GoogleController::class, 'redirect']);
+Route::get('/callback/google', [GoogleController::class, 'callback']);
 
 Route::get('/unauthorized', function () {
     return response()->json([
@@ -51,24 +55,24 @@ Route::middleware('auth:users')->group(function () {
 
     Route::get('/diseases', [PlantDiseaseController::class, 'result'])->name('diseases.result');
     Route::post('/predict', [PlantDiseaseController::class, 'predict']);  //mshghal
-    });
-    /*********************************** PLANTS ********************************/
+});
+/*********************************** PLANTS ********************************/
 
-    Route::get('/plant/{id}', [PlantController::class, 'show'])->name('plant.show');
-    Route::get('/search', [PlantController::class, 'index'])->name('plant.index');
-    Route::get('/packages', [PackageController::class, 'packages'])->name('package.index');
+Route::get('/plant/{id}', [PlantController::class, 'show'])->name('plant.show');
+Route::get('/search', [PlantController::class, 'index'])->name('plant.index');
+Route::get('/packages', [PackageController::class, 'packages'])->name('package.index');
 
 
-    /*********************************** PAYMENTS ********************************/
+/*********************************** PAYMENTS ********************************/
 
-    Route::post('/payment/process', [PaymentController::class, 'paymentProcess'])->middleware('auth:users');
-    Route::post('/myfatoorah/payment/process', [PaymentController::class, 'processMyFatoorah'])->middleware('auth:users');
+Route::post('/payment/process', [PaymentController::class, 'paymentProcess'])->middleware('auth:users');
+Route::post('/myfatoorah/payment/process', [PaymentController::class, 'processMyFatoorah'])->middleware('auth:users');
 
-    Route::match(['GET', 'POST'], '/payment/callback', [PaymentController::class, 'callBack'])->name('payment.callback');
-    Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
-    Route::get('/payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
+Route::match(['GET', 'POST'], '/payment/callback', [PaymentController::class, 'callBack'])->name('payment.callback');
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
 
-    Route::match(['GET', 'POST'], '/myfatoorah/payment/callback', [PaymentController::class, 'handleMyFatoorahCallback'])
+Route::match(['GET', 'POST'], '/myfatoorah/payment/callback', [PaymentController::class, 'handleMyFatoorahCallback'])
     ->name('payment.myfatoorah.callback');
 
 /*********************************** Home Page  ********************************/
@@ -77,7 +81,3 @@ Route::middleware('auth:users')->group(function () {
 Route::prefix('home')->middleware('auth:users')->controller(HomeController::class)->group(function () {
     Route::get('/index', 'index');
 });
-
-
-Route::get('login/google', [GoogleController::class, 'redirect']);
-Route::get('/callback/google', [GoogleController::class, 'callback']);
