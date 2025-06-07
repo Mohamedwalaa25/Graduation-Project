@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Twilio\TwiML\Video\Room;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ApiMobile\AuthController;
 use App\Http\Controllers\ApiMobile\HomeController;
 use App\Http\Controllers\ApiMobile\PlantController;
@@ -76,3 +77,7 @@ Route::middleware('auth:users')->group(function () {
 Route::prefix('home')->middleware('auth:users')->controller(HomeController::class)->group(function () {
     Route::get('/index', 'index');
 });
+
+
+Route::get('login/google', [GoogleController::class, 'redirect']);
+Route::get('/callback/google', [GoogleController::class, 'callback']);

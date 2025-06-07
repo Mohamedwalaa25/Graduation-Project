@@ -56,11 +56,18 @@ class SearchResource extends JsonResource
                     'tags' => $plant->tags->map(fn($tag) => $tag->name)->toArray(),
 
                     'images' => $plant->images->reduce(function ($carry, $image, $index) {
+                        $appUrl = config('app.url');
+
                         if ($index === 0) {
-                            $carry['image'] = $image->image ? url('storage/' . $image->image): url('assets/images/user.jpg');  
+                            $carry['image'] = $image->image
+                                ? $appUrl . '/storage/' . $image->image
+                                : $appUrl . '/assets/images/user.jpg';
                         } else {
-                            $carry['header_image'] =  $image->image ? url('storage/' . $image->image): url('assets/images/user.jpg');  
+                            $carry['header_image'] = $image->image
+                                ? $appUrl . '/storage/' . $image->image
+                                : $appUrl . '/assets/images/user.jpg';
                         }
+
                         return $carry;
                     }, []),
 
