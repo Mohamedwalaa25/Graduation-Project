@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Notifications\ArticleCreatedNotification;
 use Exception;
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -13,8 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\AuthenticationException;
 use App\Core\Dashboard\Service\ArticleService;
 use App\Http\Requests\Api\StorePendingArticleRequest;
+use App\Models\Admin;
 use Illuminate\Http\Exceptions\HttpResponseException;
-
+use Illuminate\Support\Facades\Notification;
 class PendingArticleController extends Controller
 {
     use FileTrait;
@@ -60,6 +62,18 @@ class PendingArticleController extends Controller
                 $article->id
 
             );
+
+            // Make Notification When User Created Article
+
+            $data = [
+                'user' => Auth::guard('api')->user(),
+                'article' => $article
+            ];
+
+            $admins = Admin::get();
+
+            Notification::send($admins, new ArticleCreatedNotification($data));
+
 
             DB::commit();
 

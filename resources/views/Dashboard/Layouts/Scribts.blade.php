@@ -19,5 +19,21 @@
             $('.loader-container').fadeOut('slow');
         });
     </script>
+
+
+        <script>
+            function refreshNotifications() {
+                $.ajax({
+                    url: '{{ route('ajax.dashboard.notifications.partial') }}',
+                    type: 'GET',
+                    success: function (data) {
+                        $('#notificationArea').html(data);
+                    }
+                });
+            }
+
+            // Auto-refresh every 10 seconds
+            setInterval(refreshNotifications, 10000);
+        </script>
   @stack('scripts')
   @yield('js')
