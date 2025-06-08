@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\AuthLoginRequest;
+use App\Http\Requests\GoogleAuthRequest;
 use App\Http\Resources\AuthLoginResource;
 use Illuminate\Container\Attributes\Auth;
 use App\Http\Requests\AuthRegisterRequest;
@@ -50,7 +51,7 @@ class AuthController extends Controller
         }
 
         if (is_null($user->email_verified_at)) {
-            return $this->sendError(__('auth.Your account is not activated yet'),[], 403);
+            return $this->sendError(__('auth.Your account is not activated yet'), [], 403);
         }
 
         return $this->sendResponse(new AuthLoginResource($user), __('auth.Login successfully'), 200);
@@ -177,7 +178,27 @@ class AuthController extends Controller
         return $this->sendResponse([], __('auth.Account deleted successfully'), 200);
     }
 
+    public function loginWithGoogle(GoogleAuthRequest $request)
+    {
+        $data = $request->validated();
 
+        $user = User::where('google_id', $data['google_id'])->first();
+
+        if ($user) {
+            return $this->sendResponse(new AuthLoginResource($user), __('auth.Login successfully'), 200);
+
+        } else {
+            $user = User::create([
+                'google_id' => $data['google_id'],
+                'email' => $data['email'],
+                'name' => $data['name'],
+                'password' => bcrypt(Str::random(10)),
+                'email_verified_at' => now(),
+            ]);
+
+            return $this->sendResponse(new AuthLoginResource($user), __('auth.Login successfully'), 200);
+        }
+    }
 
 
     private function sendMessage($message, $recipients)

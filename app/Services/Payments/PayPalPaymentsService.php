@@ -138,7 +138,7 @@ class PayPalPaymentsService extends BasePaymentService implements PaymentGateway
             "payment_source" => [
                 "paypal" => [
                     "experience_context" => [
-                        "return_url" => 'https://5cad-41-199-182-191.ngrok-free.app/api-mobile/payment/callback',
+                        "return_url" => 'https://7e9e-154-237-208-36.ngrok-free.app/api-mobile/payment/callback',
                         "cancel_url" => route("payment.failed"),
                     ]
                 ]
