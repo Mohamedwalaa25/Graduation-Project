@@ -25,6 +25,7 @@ Route::post('/password-recovery', [AuthController::class, 'passwordRecovery'])->
 Route::post('/verify', [AuthController::class, 'verify'])->name('auth.veryfy');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('auth.resetPassword');
 Route::get('/activate/{token}', [AuthController::class, 'verifyActivation'])->name('activation.verify');
+Route::post('/login/google', [AuthController::class, 'loginWithGoogle'])->name('auth.login.google');
 
 Route::get('login/google', [GoogleController::class, 'redirect']);
 Route::get('/callback/google', [GoogleController::class, 'callback']);

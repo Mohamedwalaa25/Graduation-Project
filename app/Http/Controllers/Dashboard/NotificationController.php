@@ -12,7 +12,7 @@ class NotificationController extends Controller
     {
         /** @var \App\Models\Admin $admin */
         $admin = Auth::guard('admin')->user();
-        $admin->unreadNotifications->markAsRead();
+        $admin?->unreadNotifications->markAsRead();
 
         notyf()
             ->position('x', 'center')
