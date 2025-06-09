@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         //     PlantSeeder::class,
         //     TagSeeder::class,
         //     PlantTagSeeder::class,
+        //     PaymentSeeder::class,
         // ]);
         \App\Models\Articlecategorie::factory(6)->create();
         \App\Models\Articlesubcategorie::factory(10)->create();
