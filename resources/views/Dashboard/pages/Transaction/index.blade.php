@@ -92,7 +92,7 @@
                                         <td>{{ $transaction->gateway }}</td>
                                         <td>{{ $transaction->currency }}</td>
                                         <td>{{ $transaction->status }}</td>
-                                          <td>{{ $transaction->created_at->format('Y-m-d H:i:s') }}</td>
+                                        <td>{{ $transaction->created_at->format('Y-m-d H:i:s') }}</td>
                                     </tr>
                                 @endforeach
                                 {{-- _______________________________ end foreach _______________________________ --}}
@@ -113,4 +113,4 @@
 
 @endsection
 
-  
+
