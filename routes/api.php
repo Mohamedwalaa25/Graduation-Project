@@ -1,52 +1,25 @@
 <?php
 
-use App\Http\Controllers\Api\ArticleApiController;
-use App\Http\Controllers\Api\ArticleCategorieApiController;
-use App\Http\Controllers\Api\ArticleController;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\CategorieController;
-use App\Http\Controllers\Api\CommentController;
-use App\Http\Controllers\Api\ContactController;
-use App\Http\Controllers\Api\LikeController;
-use App\Http\Controllers\Api\PendingArticleController;
-use App\Http\Controllers\Api\SettingApiController;
-use App\Http\Controllers\Api\SiteMapController;
-use App\Http\Controllers\Api\SliderApiController;
-use App\Http\Controllers\Api\SliderController;
-use App\Http\Controllers\Api\SubCategorieApiController;
-use App\Http\Controllers\Api\SubCategorieController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\VideoApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\SliderController;
+use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\SiteMapController;
+use App\Http\Controllers\Api\VideoApiController;
+use App\Http\Controllers\Api\CategorieController;
+use App\Http\Controllers\Api\SliderApiController;
+use App\Http\Controllers\Api\ArticleApiController;
+use App\Http\Controllers\Api\SettingApiController;
+use App\Http\Controllers\Api\SubCategorieController;
+use App\Http\Controllers\Api\PendingArticleController;
 
 
-// Route::prefix('article')->group(function () {
-//     Route::get('/find/{articleId}', [ArticleApiController::class, 'find']);
-//     Route::get('/related/{articleId}', [ArticleApiController::class, 'related']);
-//     Route::get('/writers/{articleId}', [ArticleApiController::class, 'writers']);
-//     Route::get('/getByTitle', [ArticleApiController::class, 'getByTitle']);
-//     Route::get('/filter-by-categorie-and-subCategorie', [ArticleApiController::class, 'filterByCategorieAndSubCategorie']);
-
-
-//     Route::get('/home-page', [ArticleApiController::class, 'getArticleHomePage']);
-
-
-//     Route::prefix('/categorie')->controller(ArticleCategorieApiController::class)->group(function () {
-//         Route::get('/all', 'all');
-
-//         Route::get('/subcategories', 'getArticleSubCategories');
-//     });
-// });
-
-// Route::get('/subcategorie/articles', [SubCategorieApiController::class, 'getArticles']);
-
-// Route::get('/videos/home-page', [VideoApiController::class, 'getHomePage']);
-
-
-// Route::post('contact/sendMail', [ContactController::class, 'sendMail']);
-
-// Route::get('/get-categories-and-subcategorie', [ArticleCategorieApiController::class, 'getCategoriesAndSubCategorie']);
 
 Route::get('/slider', [SliderController::class, 'get']);
 
@@ -95,3 +68,5 @@ Route::get('likes-get-by-article-id', [LikeController::class, 'getByArticle']);
 Route::get('article/search', [ArticleController::class, 'search']);
 
 Route::post('send-mail', [ContactController::class, 'sendMail']);
+
+Route::get('/settings', [App\Http\Controllers\Api\SettingController::class, 'get']);
