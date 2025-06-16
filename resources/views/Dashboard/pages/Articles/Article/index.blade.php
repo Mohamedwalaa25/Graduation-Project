@@ -73,8 +73,8 @@
                             {{-- _______________________________ start Button _______________________________ --}}
 
 
-                            <a type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add"
-                                data-bs-whatever="@mdo">Add</a>
+                                <a type="button" class="btn btn-outline-primary disabled" tabindex="-1" aria-disabled="true"
+                                    style="pointer-events: none;" data-bs-toggle="modal" data-bs-target="#add" data-bs-whatever="@mdo">Add</a>
 
 
                             {{-- _______________________________ end Button _______________________________ --}}

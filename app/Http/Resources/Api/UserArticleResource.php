@@ -20,7 +20,7 @@ class UserArticleResource extends JsonResource
             'userName' => $this->user->name,
             'userImage' => URL::asset('Backend/Uploades/Users/' . $this->user->image_name ?? 'profile.png'),
             'title' => $this->title,
-            'status' => $this->status == 1 ? "Active" : "Un Active",
+            'status' => $this->status == 1 ? true : false,
             'imageUrl' => URL::asset('Backend/Uploades/Articles/' . $this->image_file),
 
         ];

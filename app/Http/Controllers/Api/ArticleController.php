@@ -56,10 +56,15 @@ class ArticleController extends Controller
 
         $articleId = $request->articleId;
 
-        $article = Article::with(['descreptionArticles' => function ($query) {
+        $article = Article::active()->with([
+            'descreptionArticles' => function ($query) {
 
-            $query->select(['id', 'article_id', 'title', 'content']);
-        }])->find($articleId);
+                $query->select(['id', 'article_id', 'title', 'content']);
+            },
+            'user',
+            'admin'
+
+        ])->find($articleId);
 
         return apiResponse([
             'article' => new ArticleDetailsResource($article)

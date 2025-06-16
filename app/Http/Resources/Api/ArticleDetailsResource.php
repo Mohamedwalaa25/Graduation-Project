@@ -16,7 +16,7 @@ class ArticleDetailsResource extends JsonResource
      * @return array<string, mixed>
      */
 
-     
+
     /*Edited By Mohamed Walaa
     Edited at 8-5-2025 (Added liked)
     */
@@ -24,10 +24,10 @@ class ArticleDetailsResource extends JsonResource
     {
         $liked = false;
         $userId = Auth::guard('api')->user()->id ?? null;
-        if ($userId ) {
+        if ($userId) {
             $liked = Like::where('user_id', $userId)->where('article_id', $this->id)->exists();
         }
-       
+
         return [
 
             'statics' => [
@@ -47,10 +47,15 @@ class ArticleDetailsResource extends JsonResource
                     'content' => $item->content
                 ];
             }),
+            'createdByAdmin' => $this->admin()->exists() ? true : false,
+            'adminName' => "Platform",
+            'adminImage' => URL::asset('Backend/assets/img/profile-img.jpg'),
+            'userName' => optional($this->user)->name ?? "Platform",
+            'userId' => optional($this->user)->id,
+            'userImage' => optional($this->user)->image_name
+                ? URL::asset('Backend/Uploades/Users/' . $this->user->image_name)
+                : URL::asset('Backend/assets/img/profile-img.jpg')
 
-           
         ];
-
-        
     }
 }
