@@ -2,14 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\UserController;
+
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\SiteMapController;
 use App\Http\Controllers\Api\VideoApiController;
 use App\Http\Controllers\Api\CategorieController;
@@ -70,3 +71,5 @@ Route::get('article/search', [ArticleController::class, 'search']);
 Route::post('send-mail', [ContactController::class, 'sendMail']);
 
 Route::get('/settings', [App\Http\Controllers\Api\SettingController::class, 'get']);
+
+Route::get('user/{userId}', [UserController::class, 'find']);

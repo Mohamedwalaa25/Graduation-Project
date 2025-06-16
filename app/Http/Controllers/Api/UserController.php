@@ -80,4 +80,21 @@ class UserController extends Controller
             );
         }
     }
+
+    public function find(int $userId)
+    {
+        $user = User::find($userId);
+
+        if (!$user) {
+            return apiResponse(
+                null,
+                'User not found',
+                404
+            );
+        }
+
+        return apiResponse(
+            new UserResource($user)
+        );
+    }
 }
