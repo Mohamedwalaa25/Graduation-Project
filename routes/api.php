@@ -73,3 +73,5 @@ Route::post('send-mail', [ContactController::class, 'sendMail']);
 Route::get('/settings', [App\Http\Controllers\Api\SettingController::class, 'get']);
 
 Route::get('user/{userId}', [UserController::class, 'find']);
+
+Route::get('user/get-articles-by-userId/{userId}', [UserController::class, 'getArticlesByUserId']);

@@ -97,4 +97,26 @@ class UserController extends Controller
             new UserResource($user)
         );
     }
+
+    public function getArticlesByUserId(int $userId)
+    {
+        $user = User::find($userId);
+
+        if (!$user) {
+            return apiResponse(
+                null,
+                'User not found',
+                404
+            );
+        }
+
+        if (!$user->articles()->active()->exists()) {
+            return apiResponse([], "Not Found Articles", 404);
+        }
+
+        return apiResponse([
+            'articles' => UserArticleResource::collection($user->articles()->with('user')->get())
+
+        ]);
+    }
 }
