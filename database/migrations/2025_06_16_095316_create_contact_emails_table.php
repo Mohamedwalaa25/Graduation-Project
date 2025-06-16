@@ -6,17 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    // 'name' => 'required',
-    // 'phone' => 'required',
-    // 'userType' => 'required',
-    // 'content' => 'required',
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('contact_emails', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('phone');
-            $table->foreignId('user_type_id')->references('id')->on('user_types')->cascadeOnDelete();
             $table->string('email');
             $table->longText('content');
             $table->timestamps();

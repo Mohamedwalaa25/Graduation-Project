@@ -93,3 +93,5 @@ Route::get('comments-get-by-article-id', [CommentController::class, 'getByArticl
 Route::get('likes-get-by-article-id', [LikeController::class, 'getByArticle']);
 
 Route::get('article/search', [ArticleController::class, 'search']);
+
+Route::post('send-mail', [ContactController::class, 'sendMail']);
