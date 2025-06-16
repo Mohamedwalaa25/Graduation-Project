@@ -11,10 +11,7 @@ class ContactController extends Controller
     public function index()
     {
 
-        $emails = ContactEmail::with(['usertype' => function ($query) {
-
-            $query->select('type', 'id');
-        }])->paginate(6);
+        $emails = ContactEmail::paginate(6);
 
         return view('Dashboard.pages.Emails.index', compact('emails'));
     }

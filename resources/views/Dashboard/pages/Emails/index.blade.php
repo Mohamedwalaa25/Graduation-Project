@@ -8,7 +8,7 @@
     <script src="{{ URL::asset('DataTable/dataTables.bootstrap5.min.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#example').DataTable({
                 "paging": false
             });
@@ -52,7 +52,7 @@
                                     <th>Name</th>
                                     <th>Phone Number</th>
                                     <th>Email </th>
-                                    <th>User Type </th>
+
 
                                     <th>Actions</th>
 
@@ -67,7 +67,7 @@
                                         <td>{{ $email->name }}</td>
                                         <td>{{ $email->phone }}</td>
                                         <td>{{ $email->email }}</td>
-                                        <td>{{ $email->usertype->type }}</td>
+
 
                                         <td>
 
@@ -120,7 +120,7 @@
                 <div class="modal-body">
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <textarea  readonly class="form-control model_message" style="height: 100px"></textarea>
+                            <textarea readonly class="form-control model_message" style="height: 100px"></textarea>
                         </div>
                     </div>
 
