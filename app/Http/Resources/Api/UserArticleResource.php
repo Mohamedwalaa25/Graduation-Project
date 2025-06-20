@@ -22,6 +22,9 @@ class UserArticleResource extends JsonResource
             'title' => $this->title,
             'status' => $this->status == 1 ? true : false,
             'imageUrl' => URL::asset('Backend/Uploades/Articles/' . $this->image_file),
+            'date' => optional($this->created_at)->format('Y-m-d'),
+            'viewsCount' => $this->count_views,
+            'description' => optional($this->descreptionArticles()->first())->content ?? ""
 
         ];
     }
