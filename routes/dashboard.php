@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\UserPackagesManagementController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\Dashboard\AuthController;
@@ -84,10 +85,17 @@ Route::prefix('dashboard')->middleware('isAdmin')->group(function () {
 
 
     /*
-    Added By Mohamed Walaa 
+    Added By Mohamed Walaa
     */
 
       Route::prefix('/transaction')->controller(TransactionController::class)->group(function () {
         Route::get('/', 'index');
+    });
+
+
+    Route::prefix('user-packages-management')->as('userpackagesmanagement.')->controller(UserPackagesManagementController::class)->group(function () {
+
+
+        Route::get('/', 'index')->name('index');
     });
 });
