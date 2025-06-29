@@ -66,6 +66,7 @@ class SearchResource extends JsonResource
                             : asset('assets/images/deatails_carrot.jpg'),
                     ],
 
+                    
                     'similar_plants' => Plant::where('section_id', $plant->section_id)
                         ->where('id', '!=', $plant->id)
                         ->take(5)
