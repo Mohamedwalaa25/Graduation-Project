@@ -84,9 +84,7 @@ Route::prefix('dashboard')->middleware('isAdmin')->group(function () {
     });
 
 
-    /*
-    Added By Mohamed Walaa
-    */
+
 
       Route::prefix('/transaction')->controller(TransactionController::class)->group(function () {
         Route::get('/', 'index');

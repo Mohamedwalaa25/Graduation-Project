@@ -34,14 +34,12 @@ class HomePageDiseasesResource extends JsonResource
         $serverityColor = '0xff3E7B27'; // green
     }
 
-    
-
 
     return [
         'origin_name' => $this->origin_name,
         'description' => $this->description,
-        'image' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
-        'imageUrl' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
+        'image' => $this->images()->exists() ? URL::asset('assets/images/test/'.$this->images()->first()->image) : URL::asset('assets/images/test/AppleCedarRust2.JPG'),
+        'imageUrl' => $this->images()->exists() ? URL::asset('assets/images/test/'.$this->images()->first()->image) : URL::asset('assets/images/test/AppleCedarRust2.JPG'),
         'serverity' => $serverity,
         'serverityColor' => $serverityColor
     ];
