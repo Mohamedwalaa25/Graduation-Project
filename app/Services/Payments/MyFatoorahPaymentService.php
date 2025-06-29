@@ -31,13 +31,13 @@ class MyFatoorahPaymentService extends BasePaymentService implements PaymentGate
             $user = auth('users')->user(); 
     
             if (!$user) {
-                \Log::error('User not authenticated');
+                // \Log::error('User not authenticated');
                 return ['success' => false, 'url' => route('payment.failed')];
             }
     
             $package = Package::find($request->package_id);
             if (!$package) {
-                \Log::error('Package not found', ['package_id' => $request->package_id]);
+                // \Log::error('Package not found', ['package_id' => $request->package_id]);
                 return ['success' => false, 'url' => route('payment.failed')];
             }
     
@@ -56,12 +56,12 @@ class MyFatoorahPaymentService extends BasePaymentService implements PaymentGate
                 'ErrorUrl' => route('payment.failed'),
             ];
     
-            \Log::info('MyFatoorah Payment Request:', $data);
+            // \Log::info('MyFatoorah Payment Request:', $data);
     
             $response = $this->buildRequest('POST', '/v2/SendPayment', $data);
             $responseData = $response->getData(true);
     
-            \Log::info('MyFatoorah Full Response:', $responseData);
+            // \Log::info('MyFatoorah Full Response:', $responseData);
 
     
             if ($responseData['data']['IsSuccess'] ?? false) {
@@ -74,7 +74,7 @@ class MyFatoorahPaymentService extends BasePaymentService implements PaymentGate
             return ['success' => false, 'url' => route('payment.failed')];
     
         } catch (\Exception $e) {
-            \Log::error('MyFatoorah Error: ' . $e->getMessage());
+            // \Log::error('MyFatoorah Error: ' . $e->getMessage());
             return ['success' => false, 'url' => route('payment.failed')];
         }
     }

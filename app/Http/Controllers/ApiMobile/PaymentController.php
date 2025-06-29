@@ -7,9 +7,11 @@ use App\Models\Package;
 use App\Traits\Response;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Mail\PaymentSuccessMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Services\Payments\PayPalPaymentsService;
 use App\Services\Payments\MyFatoorahPaymentService;
 
@@ -46,7 +48,7 @@ class PaymentController extends Controller
         try {
             $response = $this->payPalPaymentsService->callBack($request);
     
-            Log::info('Callback Processing:', $response);
+            // Log::info('Callback Processing:', $response);
     
             if ($response['success'] && $response['user_id'] && $response['package_id']) {
                 $user = User::find($response['user_id']);
@@ -55,6 +57,7 @@ class PaymentController extends Controller
                 if (!$user || !$package) {
                     throw new \Exception("User or Package not found");
                 }
+
     
                 DB::transaction(function () use ($user, $package) {
 
@@ -69,6 +72,8 @@ class PaymentController extends Controller
                         'status' => 'success',
                     ]);
                 });
+                    Mail::to($user->email)->send(new PaymentSuccessMail($user, $package));
+
     
                 return redirect()->route('payment.success');
             }
@@ -137,6 +142,10 @@ class PaymentController extends Controller
 
                 'status' => 'success',
             ]);
+            // dump(['user' => $user->email, 'package' => $package]);
+
+              Mail::to($user->email)->send(new PaymentSuccessMail($user, $package));
+
             return redirect()->route('payment.success');
         }
     }

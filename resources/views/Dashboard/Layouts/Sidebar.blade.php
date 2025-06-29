@@ -36,6 +36,48 @@
             </a>
         </li>
 
+      
+
+                <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('dashboard/slider') }}">
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Slider</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('dashboard/contact-email') }}">
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Contact Emails </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('dashboard/setting') }}">
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Settings </span>
+            </a>
+        </li>
+{{-- 
+           <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('dashboard/transaction') }}">
+             <i class="bi bi-coin"></i>
+                <span>Transactions</span>
+            </a>
+        </li> --}}
+
+
+
+        {{-- <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Article</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ url('dashboard/article-categorie') }}">
+                        <i class="bi bi-circle"></i><span>Categories</span>
+                    </a>
+                </li>
+
 
 
 
@@ -136,12 +178,12 @@
             </ul>
         </li><!-- End Icons Nav --> --}}
 
-        <li class="nav-heading">Pages</li>
+        <li class="nav-heading">Mobile</li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ url('dashboard/slider') }}">
-                <i class="bi bi-menu-button-wide"></i>
-                <span>Slider</span>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('dashboard/plant') }}">
+                <i class="bi bi-flower1"></i>
+                <span>Plants Management</span>
             </a>
         </li>
         <li class="nav-item">
@@ -153,20 +195,23 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ url('dashboard/user-packages-management') }}">
+
                 <i class="bi bi-menu-button-wide"></i>
                 <span>User Packages Management </span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ url('dashboard/contact-email') }}">
+
                 <i class="bi bi-menu-button-wide"></i>
-                <span>Contact Emails </span>
+                <span>User Packages Management </span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ url('dashboard/setting') }}">
+            <a class="nav-link collapsed" href="{{ url('dashboard/transaction') }}">
                 <i class="bi bi-menu-button-wide"></i>
-                <span>Settings </span>
+                <span>
+Transactions</span>
             </a>
         </li>
 

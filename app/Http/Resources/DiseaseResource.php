@@ -15,7 +15,7 @@ class DiseaseResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-       $history = DiseaseUser::where('disease_id', $this->id)->where('user_id', auth('users')->user()->id)->first();
+        $history = DiseaseUser::where('disease_id', $this->id)->where('user_id', auth('users')->user()->id)->first();
         return
             [
 
@@ -60,17 +60,18 @@ class DiseaseResource extends JsonResource
 
                 'disease_images' => $this->images->map(function ($image) {
                     return [
-                        'image' => $image->image,
+                        'image' => $image->image
+                            ? asset('storage/' . $image->image)
+                            : asset('assets/images/deatails_carrot.jpg'),
                     ];
                 }),
+                'repetitions' => $history->repetitions ?? 0,
 
-                'repetitions' => $history ->repetitions ?? 0,
 
+                'image_history' => $history && $history->image
+                    ? asset('storage/' . $history->image)
+                    : "",
 
-                'image_history' =>         $history 
-                    ? url('storage/' .    $history ->image )
-                    : "", 
-                    
                 // 'image_history' => $this->diseaseUser()->first()->image ?  $this->diseaseUser()->first()->image  : "",
 
             ];

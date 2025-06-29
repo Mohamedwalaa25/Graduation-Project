@@ -12,7 +12,7 @@ class Section extends Model
     /** @use HasFactory<\Database\Factories\SectionFactory> */
     use HasFactory, HasTranslations;
 
-    public $translatable = ['name'];
+    // public $translatable = ['name'];
 
     protected $fillable = [
         'name',
