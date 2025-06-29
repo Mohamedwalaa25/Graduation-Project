@@ -75,26 +75,26 @@ class AuthController extends Controller
             return $this->sendError(__('auth.Email not found'), 404);
         }
 
-        $tokenEntry = DB::table('password_reset_tokens')->where('email', $user->email)->first();
-
-        if ($tokenEntry) {
-            return $this->sendError(__('auth.email already sent'), 400);
-        }
-
-        $otp = str_pad(rand(0, 9999), 4, '0', STR_PAD_LEFT);
+        $otp = rand(1111, 9999);
 
         $user->otp = $otp;
         $user->save();
 
         $token = Hash::make(Str::random(60));
 
-        DB::table('password_reset_tokens')->insert([
-            'email' => $user->email,
-            'token' => $token,
-            'created_at' => now(),
-        ]);
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $user->email],
+            [
+                'token' => $token,
+                'created_at' => now(),
+            ]
+        );
 
-        Mail::to($user->email)->send(new SendOtpEmail($user));
+        try {
+            Mail::to($user->email)->send(new SendOtpEmail($user));
+        } catch (\Exception $e) {
+            return $this->sendError('Failed to send OTP email. Please try again.', 500);
+        }
 
         return $this->sendResponse([], __('auth.Otp Send successfully'), 200);
     }
@@ -186,7 +186,6 @@ class AuthController extends Controller
 
         if ($user) {
             return $this->sendResponse(new AuthLoginResource($user), __('auth.Login successfully'), 200);
-
         } else {
             $user = User::create([
                 'google_id' => $data['google_id'],

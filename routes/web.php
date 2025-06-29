@@ -8,3 +8,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::get('/' , function(){
+    return view('payment_success');
+});
