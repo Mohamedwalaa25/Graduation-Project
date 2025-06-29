@@ -61,8 +61,8 @@ class SearchResource extends JsonResource
 
                     'images' => [
                         'header_image' => $plant->images->first()?->image
-                            // ? asset('Backend/Uploades/Plants/' . $plant->images->first()->image)
-                           ? URL('https://0290-197-121-150-179.ngrok-free.app/Backend/Uploades/Plants/' . $plant->images->first()->image)
+                            ? asset('Backend/Uploades/Plants/' . $plant->images->first()->image)
+                        //    ? URL('https://0290-197-121-150-179.ngrok-free.app/Backend/Uploades/Plants/' . $plant->images->first()->image)
                             : asset('assets/images/deatails_carrot.jpg'),
                     ],
 
@@ -75,8 +75,8 @@ class SearchResource extends JsonResource
                                 'id' => $similar->id,
                                 'name' => $similar->name,
                                 'image' => $similar->images->first()?->image
-                                    // ? asset('Backend/Uploades/Plants/' . $similar->images->first()->image)
-                                   ? URL('https://0290-197-121-150-179.ngrok-free.app/Backend/Uploades/Plants/' . $similar->images->first()->image)
+                                    ? asset('Backend/Uploades/Plants/' . $similar->images->first()->image)
+                                //    ? URL('https://0290-197-121-150-179.ngrok-free.app/Backend/Uploades/Plants/' . $similar->images->first()->image)
                                     : asset('assets/images/deatails_carrot.jpg'),
                             ];
                         }),

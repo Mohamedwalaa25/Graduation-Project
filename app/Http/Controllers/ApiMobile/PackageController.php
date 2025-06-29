@@ -30,7 +30,7 @@ class PackageController extends Controller
     
     private function convertCurrency($amount, $from = 'EGP', $to = 'USD') {
         $response = Http::get('https://api.currencylayer.com/convert', [
-            'access_key' => '46620d49d78e814e19c7db401f6ca958',
+            'access_key' => 'c85e2900542d59e67ed77107c74558ae',
             'from' => $from,
             'to' => $to,
             'amount' => $amount,
