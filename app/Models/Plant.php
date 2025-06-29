@@ -17,14 +17,13 @@ class Plant extends Model
     protected $guarded = [];
 
     protected function casts(): array
-{
-    return [
-        'pests' => 'array',
-        'diseases' => 'array',
-        'also_known_as' => 'array',
-      
-    ];
-}
+    {
+        return [
+            // 'pests' => 'array',
+            // 'diseases' => 'array',
+            // 'also_known_as' => 'array',
+        ];
+    }
 
 
     public function section()

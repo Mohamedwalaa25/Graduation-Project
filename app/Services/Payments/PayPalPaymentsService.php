@@ -52,12 +52,12 @@ class PayPalPaymentsService extends BasePaymentService implements PaymentGateway
         $response = $this->buildRequest('POST', "/v2/checkout/orders/$token/capture");
         $responseData = $response->getData(true);
     
-        Log::info('Raw PayPal Response:', $responseData);
+        // Log::info('Raw PayPal Response:', $responseData);
     
        
          // check if the response structure is valid
         if (!isset($responseData['data']['purchase_units'][0]['payments']['captures'][0])) {
-            Log::error('Invalid PayPal response structure', $responseData);
+            // Log::error('Invalid PayPal response structure', $responseData);
             return [
                 'success' => false,
                 'user_id' => null,
@@ -71,7 +71,7 @@ class PayPalPaymentsService extends BasePaymentService implements PaymentGateway
         $customId = $captureData['custom_id'] ?? null;
     
         if (!$customId) {
-            Log::error('Custom ID missing in PayPal response', $captureData);
+            // Log::error('Custom ID missing in PayPal response', $captureData);
             return [
                 'success' => false,
                 'user_id' => null,
@@ -82,10 +82,10 @@ class PayPalPaymentsService extends BasePaymentService implements PaymentGateway
         $customData = json_decode($customId, true);
     
         if (json_last_error() !== JSON_ERROR_NONE) {
-            Log::error('Failed to decode custom_id', [
-                'custom_id' => $customId,
-                'error' => json_last_error_msg()
-            ]);
+            // Log::error('Failed to decode custom_id', [
+            //     'custom_id' => $customId,
+            //     'error' => json_last_error_msg()
+            // ]);
             return [
                 'success' => false,
                 'user_id' => null,
@@ -113,11 +113,11 @@ class PayPalPaymentsService extends BasePaymentService implements PaymentGateway
 
         
     
-        Log::info('Payment Request Data:', [
-            'user_id' => $userId,
-            'package_id' => $packageId,
-            'amount' => $request->price
-        ]);
+        // Log::info('Payment Request Data:', [
+        //     'user_id' => $userId,
+        //     'package_id' => $packageId,
+        //     'amount' => $request->price
+        // ]);
     
         return [
             "intent" => "CAPTURE",
@@ -138,7 +138,7 @@ class PayPalPaymentsService extends BasePaymentService implements PaymentGateway
             "payment_source" => [
                 "paypal" => [
                     "experience_context" => [
-                        "return_url" => 'https://123a-154-237-85-127.ngrok-free.app/api-mobile/payment/callback',
+                        "return_url" => route("payment.callback"),
                         "cancel_url" => route("payment.failed"),
                     ]
                 ]

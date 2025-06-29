@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\PendingArticleController;
 use App\Http\Controllers\Dashboard\Articles\ArticleController;
 use App\Http\Controllers\Dashboard\Articles\ArticleCategorieController;
 use App\Http\Controllers\Dashboard\Articles\ArticleSubCategorieController;
+use App\Http\Controllers\Dashboard\PlantController;
 
 
 
@@ -98,4 +99,16 @@ Route::prefix('dashboard')->middleware('isAdmin')->group(function () {
 
         Route::get('/', 'index')->name('index');
     });
+
+    Route::prefix('/plant')->controller(PlantController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/show/{id}', 'show');
+        Route::post('/store', 'store');
+        Route::get('/delete/{id}', 'delete');
+        Route::post('/update', 'update');
+        Route::delete('/image/delete/{id}', 'deleteImage');
+        Route::get('/images/{id}', 'getImages');
+    });
+
+    
 });

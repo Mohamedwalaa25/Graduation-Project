@@ -40,8 +40,10 @@ class HomePageDiseasesResource extends JsonResource
     return [
         'origin_name' => $this->origin_name,
         'description' => $this->description,
-        'image' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
-        'imageUrl' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
+        // 'image' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
+        // 'imageUrl' => $this->images()->exists() ? $this->images()->first()->image : URL::asset('disease.jfif'),
+        'image'=>URL('https://0290-197-121-150-179.ngrok-free.app/assets/images/diseases/disease_test.png'),
+        'imageUrl' =>URL('https://0290-197-121-150-179.ngrok-free.app/assets/images/diseases/disease_test.png'),
         'serverity' => $serverity,
         'serverityColor' => $serverityColor
     ];
