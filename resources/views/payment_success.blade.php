@@ -87,6 +87,7 @@
                 {{-- <p><strong>Payment Method:</strong> PayPal</p> --}}
             </div>
 
+
             <div class="thank-you">
                 Your subscription has been successfully activated. We hope you enjoy your experience with us.
             </div>
