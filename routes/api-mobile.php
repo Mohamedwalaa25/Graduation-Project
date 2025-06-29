@@ -79,6 +79,7 @@ Route::match(['GET', 'POST'], '/myfatoorah/payment/callback', [PaymentController
 /*********************************** Home Page  ********************************/
 
 
-Route::prefix('home')->middleware('auth:users')->controller(HomeController::class)->group(function () {
+Route::prefix('home')->controller(HomeController::class)->group(function () {
+// Route::prefix('home')->middleware('auth:users')->controller(HomeController::class)->group(function () {
     Route::get('/index', 'index');
 });

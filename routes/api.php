@@ -54,8 +54,7 @@ Route::middleware('isUser')->group(function () {
         Route::post('/store', 'store');
     });
 
-    Route::get('user/articles', [UserController::class, 'articles']);
-    Route::post('user/update', [UserController::class, 'update']);
+
     Route::post('comment/create', [CommentController::class, 'store']);
 
     Route::post('like/create', [LikeController::class, 'store']);

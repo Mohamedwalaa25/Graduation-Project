@@ -43,7 +43,7 @@ class HomeController extends Controller
         ->with(['images'])
         ->withCount('diseaseUser')
         ->orderByDesc('disease_user_count')
-        ->limit(5)  
+        ->limit(5)
         ->get();
 
 
@@ -66,7 +66,7 @@ class HomeController extends Controller
     }
 
     // Add index for each disease
-    $homePageDiseases = $homePageDiseases->map(function ($disease, $index) {
+    $homePageDiseases = $homePageDiseases->unique()->map(function ($disease, $index) {
         $disease->position = $index + 1;
         return $disease;
     });
